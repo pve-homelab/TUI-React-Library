@@ -28,6 +28,10 @@ export { Select, Dropdown } from './components/core/Select';
 export type { SelectProps, SelectOption } from './components/core/Select';
 export { Modal } from './components/core/Modal';
 export type { ModalProps } from './components/core/Modal';
+export { Popover } from './components/core/Popover';
+export type { PopoverProps } from './components/core/Popover';
+export { Tooltip } from './components/core/Tooltip';
+export type { TooltipProps } from './components/core/Tooltip';
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
 

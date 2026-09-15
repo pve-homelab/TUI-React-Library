@@ -1,0 +1,24 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+}
+
+.content {
+  position: absolute;
+  z-index: var(--tui-z-tooltip);
+  bottom: calc(100% + var(--tui-space-1));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(16rem, 90vw);
+  padding: var(--tui-space-1) var(--tui-space-2);
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-surface2);
+  color: var(--tui-text);
+  font-size: var(--tui-fs-xs);
+  line-height: 1.3;
+  pointer-events: none;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--tui-overlay0) 40%, transparent);
+}

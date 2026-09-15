@@ -1,0 +1,21 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+}
+
+.content {
+  position: absolute;
+  z-index: var(--tui-z-dropdown);
+  top: calc(100% + var(--tui-space-1));
+  left: 0;
+  min-width: 10rem;
+  max-width: min(20rem, 90vw);
+  padding: var(--tui-space-2) var(--tui-space-3);
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-surface1);
+  color: var(--tui-text);
+  font-size: var(--tui-fs-sm);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--tui-overlay0) 45%, transparent);
+}
