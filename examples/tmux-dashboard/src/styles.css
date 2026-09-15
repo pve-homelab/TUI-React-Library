@@ -1,0 +1,14 @@
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+.term {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--tui-subtext1);
+}

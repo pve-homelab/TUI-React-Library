@@ -1,0 +1,49 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tui-space-1);
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--tui-focus);
+  outline-offset: 1px;
+}
+
+.primary {
+  background: var(--tui-accent-muted);
+  border-color: var(--tui-accent);
+  color: var(--tui-text);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--tui-subtext1);
+}
+
+.danger {
+  background: transparent;
+  border-color: var(--tui-danger);
+  color: var(--tui-danger);
+}
+
+.sm {
+  font-size: var(--tui-fs-xs);
+  padding: 2px var(--tui-space-2);
+  min-height: 22px;
+}
+
+.md {
+  font-size: var(--tui-fs-sm);
+  padding: var(--tui-space-1) var(--tui-space-3);
+  min-height: 28px;
+}

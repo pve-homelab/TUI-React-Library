@@ -1,0 +1,30 @@
+.frame {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  border: var(--tui-border-width) solid var(--tui-border);
+  background: var(--tui-bg);
+}
+
+.title {
+  padding: 2px var(--tui-space-2);
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-accent);
+  background: var(--tui-surface0);
+  border-bottom: var(--tui-border-width) solid var(--tui-border);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.footer {
+  padding: 2px var(--tui-space-2);
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-subtext0);
+  border-top: var(--tui-border-width) solid var(--tui-border);
+  background: var(--tui-surface0);
+}

@@ -1,0 +1,105 @@
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  background: var(--tui-bg);
+  border: var(--tui-border-width) solid var(--tui-border);
+  color: var(--tui-text);
+}
+
+.focused {
+  border-color: var(--tui-accent);
+  box-shadow: inset 0 0 0 1px var(--tui-accent);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tui-space-2);
+  padding: var(--tui-space-1) var(--tui-space-2);
+  background: var(--tui-surface0);
+  border-bottom: var(--tui-border-width) solid var(--tui-border);
+  font-size: var(--tui-fs-sm);
+  color: var(--tui-subtext1);
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: var(--tui-space-1);
+  flex-shrink: 0;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: var(--tui-space-2);
+}
+
+.scrollable {
+  overflow: auto;
+}
+
+.split {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.splitItem {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gutterVertical,
+.gutterHorizontal {
+  position: absolute;
+  z-index: 2;
+  background: transparent;
+}
+
+.gutterVertical {
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.gutterHorizontal {
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 6px;
+  cursor: row-resize;
+}
+
+.gutterVertical:hover,
+.gutterHorizontal:hover,
+.gutterVertical:focus-visible,
+.gutterHorizontal:focus-visible {
+  background: var(--tui-accent);
+  outline: none;
+}

@@ -1,0 +1,23 @@
+.tui-root {
+  box-sizing: border-box;
+  color: var(--tui-text);
+  background: var(--tui-bg);
+  font-family: var(--tui-font);
+  font-size: var(--tui-fs-md);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tui-root *,
+.tui-root *::before,
+.tui-root *::after {
+  box-sizing: border-box;
+}
+
+.tui-root button,
+.tui-root input,
+.tui-root textarea,
+.tui-root select {
+  font: inherit;
+  color: inherit;
+}

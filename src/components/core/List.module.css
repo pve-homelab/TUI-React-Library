@@ -1,0 +1,45 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  padding: var(--tui-space-1) var(--tui-space-2);
+  cursor: pointer;
+  color: var(--tui-text);
+  font-size: var(--tui-fs-sm);
+}
+
+.item:hover {
+  background: var(--tui-surface0);
+}
+
+.selected {
+  background: var(--tui-accent-muted);
+}
+
+.focused {
+  outline: 1px solid var(--tui-accent);
+  outline-offset: -1px;
+}
+
+.leading,
+.trailing {
+  flex-shrink: 0;
+  color: var(--tui-subtext0);
+  font-size: var(--tui-fs-xs);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

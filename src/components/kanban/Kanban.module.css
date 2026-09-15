@@ -1,0 +1,163 @@
+.board {
+  display: flex;
+  gap: var(--tui-space-2);
+  align-items: stretch;
+  min-height: 0;
+  height: 100%;
+  overflow-x: auto;
+  padding: var(--tui-space-2);
+  outline: none;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  width: 260px;
+  background: var(--tui-surface0);
+  border: var(--tui-border-width) solid var(--tui-border);
+}
+
+.columnFocused,
+.columnOver {
+  border-color: var(--tui-accent);
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--tui-space-2);
+  padding: var(--tui-space-2);
+  border-bottom: var(--tui-border-width) solid var(--tui-border);
+}
+
+.columnTitle {
+  margin: 0;
+  font-size: var(--tui-fs-sm);
+  font-weight: 600;
+}
+
+.columnSubtitle {
+  margin: 2px 0 0;
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-subtext0);
+}
+
+.count {
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-accent);
+}
+
+.columnBody {
+  flex: 1;
+  min-height: 80px;
+  overflow: auto;
+  padding: var(--tui-space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tui-space-2);
+}
+
+.sortableItem {
+  touch-action: none;
+  cursor: grab;
+}
+
+.sortableItem:active {
+  cursor: grabbing;
+}
+
+.sortablePlaceholder {
+  opacity: 1;
+}
+
+.sortablePlaceholder .card {
+  opacity: 0.35;
+  border-style: dashed;
+  border-color: var(--tui-accent);
+  background: var(--tui-accent-muted);
+}
+
+.card {
+  background: var(--tui-bg);
+  border: var(--tui-border-width) solid var(--tui-border);
+  padding: var(--tui-space-2);
+  cursor: grab;
+}
+
+.cardSelected {
+  border-color: var(--tui-accent);
+  box-shadow: inset 0 0 0 1px var(--tui-accent);
+}
+
+.cardDragging {
+  opacity: 0.35;
+}
+
+.cardOverlay {
+  cursor: grabbing;
+  width: 244px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-color: var(--tui-accent);
+  background: var(--tui-surface0);
+  opacity: 1;
+}
+
+.dragOverlay {
+  cursor: grabbing;
+  z-index: 1400;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--tui-space-1);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--tui-fs-sm);
+  font-weight: 600;
+}
+
+.cardBody {
+  margin: var(--tui-space-1) 0 0;
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-subtext1);
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: var(--tui-space-2);
+}
+
+.tag,
+.meta {
+  font-size: var(--tui-fs-xs);
+  color: var(--tui-subtext0);
+  border: var(--tui-border-width) solid var(--tui-border);
+  padding: 0 4px;
+}
+
+.status {
+  font-size: var(--tui-fs-xs);
+}
+
+.idle {
+  color: var(--tui-overlay1);
+}
+
+.working {
+  color: var(--tui-green);
+}
+
+.blocked {
+  color: var(--tui-yellow);
+}
+
+.done {
+  color: var(--tui-teal);
+}

@@ -1,0 +1,13 @@
+node_modules
+dist
+storybook-static
+coverage
+*.log
+.DS_Store
+.env
+.env.*
+examples/*/node_modules
+examples/*/dist
+
+.worktrees/
+.superpowers/sdd/

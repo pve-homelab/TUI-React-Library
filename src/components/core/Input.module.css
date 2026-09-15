@@ -1,0 +1,20 @@
+.field {
+  width: 100%;
+  background: var(--tui-surface0);
+  border: var(--tui-border-width) solid var(--tui-border);
+  color: var(--tui-text);
+  padding: var(--tui-space-1) var(--tui-space-2);
+  border-radius: var(--tui-radius-sm);
+  font-size: var(--tui-fs-sm);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--tui-accent);
+  box-shadow: 0 0 0 1px var(--tui-accent);
+}
+
+.area {
+  min-height: 88px;
+  resize: vertical;
+}

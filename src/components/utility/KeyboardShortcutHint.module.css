@@ -1,0 +1,25 @@
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tui-subtext0);
+  font-size: var(--tui-fs-xs);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  padding: 0 4px;
+  border: var(--tui-border-width) solid var(--tui-border);
+  background: var(--tui-surface1);
+  color: var(--tui-subtext1);
+  font-family: inherit;
+  font-size: var(--tui-fs-xs);
+  border-radius: var(--tui-radius-sm);
+}
+
+.label {
+  margin-left: 2px;
+}
