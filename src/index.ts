@@ -26,7 +26,8 @@ export { Radio, RadioGroup } from './components/core/Radio';
 export type { RadioProps, RadioGroupProps } from './components/core/Radio';
 export { Select, Dropdown } from './components/core/Select';
 export type { SelectProps, SelectOption } from './components/core/Select';
-
+export { Modal } from './components/core/Modal';
+export type { ModalProps } from './components/core/Modal';
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
 
