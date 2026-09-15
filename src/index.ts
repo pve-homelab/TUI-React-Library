@@ -32,6 +32,8 @@ export { Popover } from './components/core/Popover';
 export type { PopoverProps } from './components/core/Popover';
 export { Tooltip } from './components/core/Tooltip';
 export type { TooltipProps } from './components/core/Tooltip';
+export { Menu } from './components/core/Menu';
+export type { MenuProps, MenuItem } from './components/core/Menu';
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
 
