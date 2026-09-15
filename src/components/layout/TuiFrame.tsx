@@ -2,7 +2,7 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { cx } from '../../utils/cx';
 import styles from './TuiFrame.module.css';
 
-export interface TuiFrameProps extends HTMLAttributes<HTMLDivElement> {
+export interface TuiFrameProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: ReactNode;
   footer?: ReactNode;
 }
@@ -19,3 +19,5 @@ export const TuiFrame = forwardRef<HTMLDivElement, TuiFrameProps>(function TuiFr
     </div>
   );
 });
+
+export const TuiWindow = TuiFrame;

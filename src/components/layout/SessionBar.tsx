@@ -9,7 +9,7 @@ export interface SessionTab {
   badge?: ReactNode;
 }
 
-export interface SessionBarProps extends HTMLAttributes<HTMLDivElement> {
+export interface SessionBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   sessions: SessionTab[];
   onSelect?: (id: string) => void;
   trailing?: ReactNode;

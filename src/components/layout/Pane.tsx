@@ -9,7 +9,7 @@ import {
 import { cx } from '../../utils/cx';
 import styles from './Pane.module.css';
 
-export interface PaneProps extends HTMLAttributes<HTMLDivElement> {
+export interface PaneProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: ReactNode;
   focused?: boolean;
   scrollable?: boolean;

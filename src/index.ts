@@ -9,7 +9,7 @@ export { StatusBar } from './components/layout/StatusBar';
 export type { StatusBarProps } from './components/layout/StatusBar';
 export { SessionBar, TabBar, IconButton } from './components/layout/SessionBar';
 export type { SessionBarProps, SessionTab, TabBarProps, IconButtonProps } from './components/layout/SessionBar';
-export { TuiFrame } from './components/layout/TuiFrame';
+export { TuiFrame, TuiWindow } from './components/layout/TuiFrame';
 export type { TuiFrameProps } from './components/layout/TuiFrame';
 
 export { Button } from './components/core/Button';
