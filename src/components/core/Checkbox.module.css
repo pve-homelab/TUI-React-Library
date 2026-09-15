@@ -1,0 +1,76 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  cursor: pointer;
+  font-size: var(--tui-fs-sm);
+  color: var(--tui-text);
+  user-select: none;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.box {
+  position: relative;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-surface0);
+}
+
+.input:checked + .box,
+.input:indeterminate + .box {
+  background: var(--tui-accent-muted);
+  border-color: var(--tui-accent);
+}
+
+.input:checked + .box::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0;
+  width: 4px;
+  height: 8px;
+  border: solid var(--tui-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.input:indeterminate + .box::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  width: 8px;
+  height: 2px;
+  background: var(--tui-accent);
+  border: none;
+  transform: none;
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid var(--tui-focus);
+  outline-offset: 1px;
+}
+
+.label {
+  line-height: 1.35;
+}
