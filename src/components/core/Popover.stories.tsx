@@ -23,29 +23,31 @@ export const Default: Story = {
   ),
 };
 
+function ControlledStory() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+        content={
+          <div>
+            <p style={{ margin: '0 0 8px' }}>Controlled open state</p>
+            <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
+              Close
+            </Button>
+          </div>
+        }
+      >
+        <Button>Controlled</Button>
+      </Popover>
+      <span style={{ fontSize: 12, opacity: 0.7 }}>open: {String(open)}</span>
+    </div>
+  );
+}
+
 export const Controlled: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    return (
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <Popover
-          open={open}
-          onOpenChange={setOpen}
-          content={
-            <div>
-              <p style={{ margin: '0 0 8px' }}>Controlled open state</p>
-              <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
-                Close
-              </Button>
-            </div>
-          }
-        >
-          <Button>Controlled</Button>
-        </Popover>
-        <span style={{ fontSize: 12, opacity: 0.7 }}>open: {String(open)}</span>
-      </div>
-    );
-  },
+  render: () => <ControlledStory />,
 };
 
 export const DefaultOpen: Story = {

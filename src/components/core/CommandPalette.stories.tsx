@@ -41,63 +41,67 @@ const demoItems = (setLast: (label: string) => void): CommandItem[] => [
   { id: 'quit', label: 'Quit', keywords: 'exit', onSelect: () => setLast('Quit') },
 ];
 
+function DefaultStory() {
+  const [open, setOpen] = useState(false);
+  const [last, setLast] = useState<string | null>(null);
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Open command palette</Button>
+      <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
+        Last selected: {last ?? '—'}
+      </p>
+      <CommandPalette
+        open={open}
+        onClose={() => setOpen(false)}
+        items={demoItems((label) => {
+          setLast(label);
+          setOpen(false);
+        })}
+      />
+    </div>
+  );
+}
+
 export const Default: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    const [last, setLast] = useState<string | null>(null);
-    return (
-      <div>
-        <Button onClick={() => setOpen(true)}>Open command palette</Button>
-        <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
-          Last selected: {last ?? '—'}
-        </p>
-        <CommandPalette
-          open={open}
-          onClose={() => setOpen(false)}
-          items={demoItems((label) => {
-            setLast(label);
-            setOpen(false);
-          })}
-        />
-      </div>
-    );
-  },
+  render: () => <DefaultStory />,
 };
+
+function ConsumerOwnsShortcutStory() {
+  const [open, setOpen] = useState(false);
+  const [last, setLast] = useState<string | null>(null);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  return (
+    <div>
+      <p style={{ fontSize: 12, opacity: 0.7 }}>
+        Press Ctrl/Cmd+K to open (consumer-owned binding).
+      </p>
+      <p style={{ marginTop: 8, fontSize: 12, opacity: 0.7 }}>
+        Last selected: {last ?? '—'}
+      </p>
+      <CommandPalette
+        open={open}
+        onClose={() => setOpen(false)}
+        items={demoItems((label) => {
+          setLast(label);
+          setOpen(false);
+        })}
+      />
+    </div>
+  );
+}
 
 export const ConsumerOwnsShortcut: Story = {
   name: 'Consumer owns shortcut (Ctrl/Cmd+K)',
-  render: () => {
-    const [open, setOpen] = useState(false);
-    const [last, setLast] = useState<string | null>(null);
-
-    useEffect(() => {
-      const onKeyDown = (event: KeyboardEvent) => {
-        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-          event.preventDefault();
-          setOpen(true);
-        }
-      };
-      window.addEventListener('keydown', onKeyDown);
-      return () => window.removeEventListener('keydown', onKeyDown);
-    }, []);
-
-    return (
-      <div>
-        <p style={{ fontSize: 12, opacity: 0.7 }}>
-          Press Ctrl/Cmd+K to open (consumer-owned binding).
-        </p>
-        <p style={{ marginTop: 8, fontSize: 12, opacity: 0.7 }}>
-          Last selected: {last ?? '—'}
-        </p>
-        <CommandPalette
-          open={open}
-          onClose={() => setOpen(false)}
-          items={demoItems((label) => {
-            setLast(label);
-            setOpen(false);
-          })}
-        />
-      </div>
-    );
-  },
+  render: () => <ConsumerOwnsShortcutStory />,
 };

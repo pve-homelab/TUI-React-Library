@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  Button,
+  CommandPalette,
   KeyboardShortcutHint,
   List,
   ListItem,
@@ -10,6 +12,7 @@ import {
   StatusBar,
   ThemeProvider,
   TuiFrame,
+  type CommandItem,
 } from 'tui-react-library';
 import './styles.css';
 
@@ -37,8 +40,65 @@ export function App() {
   const [session, setSession] = useState('herdr');
   const [agent, setAgent] = useState<(typeof AGENTS)[number]['id']>('herdr');
   const [win, setWin] = useState('1');
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [lastCommand, setLastCommand] = useState<string | null>(null);
   const focused = AGENTS.find((item) => item.id === agent) ?? AGENTS[0];
   const activeWindow = WINDOWS.find((item) => item.id === win) ?? WINDOWS[1]!;
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  const commands: CommandItem[] = [
+    {
+      id: 'focus-herdr',
+      label: 'Focus herdr',
+      keywords: 'agent',
+      onSelect: () => {
+        setAgent('herdr');
+        setSession('herdr');
+        setLastCommand('Focus herdr');
+        setPaletteOpen(false);
+      },
+    },
+    {
+      id: 'window-zsh',
+      label: 'Switch to 0:zsh',
+      keywords: 'window session',
+      onSelect: () => {
+        setWin('0');
+        setLastCommand('Switch to 0:zsh');
+        setPaletteOpen(false);
+      },
+    },
+    {
+      id: 'window-agent',
+      label: 'Switch to 1:agent',
+      keywords: 'window session',
+      onSelect: () => {
+        setWin('1');
+        setLastCommand('Switch to 1:agent');
+        setPaletteOpen(false);
+      },
+    },
+    {
+      id: 'window-logs',
+      label: 'Switch to 2:logs',
+      keywords: 'window session',
+      onSelect: () => {
+        setWin('2');
+        setLastCommand('Switch to 2:logs');
+        setPaletteOpen(false);
+      },
+    },
+  ];
 
   return (
     <ThemeProvider
@@ -57,6 +117,15 @@ export function App() {
           <>
             <KeyboardShortcutHint keys={['C-b', '%']} label="vsplit" />
             <KeyboardShortcutHint keys={['C-b', '"']} label="hsplit" />
+            <KeyboardShortcutHint keys={['C-k']} label="command" />
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setPaletteOpen(true)}
+              aria-label="Open command palette"
+            >
+              ⌘K
+            </Button>
             <span style={{ color: 'var(--tui-subtext0)', fontSize: 11 }}>{session}</span>
           </>
         }
@@ -89,6 +158,9 @@ export function App() {
             >
               <TuiFrame title={`pane 0 — ${activeWindow.label}`}>
                 <pre className="term">{activeWindow.log}</pre>
+                {lastCommand ? (
+                  <pre className="term">{`\n# last command: ${lastCommand}`}</pre>
+                ) : null}
               </TuiFrame>
             </Pane>
             <SplitPaneHorizontal initialSizes={[50, 50]}>
@@ -109,8 +181,9 @@ astro v5.18.1 ready in 668 ms`}</pre>
       <StatusBar
         left={`[${session}] ${win}:${focused.label}`}
         center={`${focused.status} · ${focused.harness}`}
-        right="prefix C-b · % split · d detach"
+        right="C-k command · prefix C-b · % split · d detach"
       />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} items={commands} />
     </ThemeProvider>
   );
 }

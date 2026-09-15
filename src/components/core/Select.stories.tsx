@@ -28,9 +28,11 @@ export const Default: Story = {
   },
 };
 
+function ControlledStory() {
+  const [value, setValue] = useState('beta');
+  return <Select options={options} value={value} onChange={setValue} />;
+}
+
 export const Controlled: Story = {
-  render: () => {
-    const [value, setValue] = useState('beta');
-    return <Select options={options} value={value} onChange={setValue} />;
-  },
+  render: () => <ControlledStory />,
 };

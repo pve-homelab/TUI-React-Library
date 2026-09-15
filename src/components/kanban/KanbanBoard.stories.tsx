@@ -49,27 +49,29 @@ export default meta;
 
 type Story = StoryObj<typeof KanbanBoard>;
 
-export const Default: Story = {
-  render: () => {
-    const [cards, setCards] = useState(initialCards);
-    const [selectedId, setSelectedId] = useState('c1');
+function DefaultStory() {
+  const [cards, setCards] = useState(initialCards);
+  const [selectedId, setSelectedId] = useState('c1');
 
-    return (
-      <div style={{ height: 420, padding: 8 }}>
-        <KanbanBoard
-          columns={columns}
-          cards={cards}
-          selectedCardId={selectedId}
-          focusedColumnId={cards.find((card) => card.id === selectedId)?.columnId}
-          onSelectCard={setSelectedId}
-          onMove={(event) => {
-            setCards((prev) => applyCardMove(prev, event));
-            setSelectedId(event.cardId);
-          }}
-        />
-      </div>
-    );
-  },
+  return (
+    <div style={{ height: 420, padding: 8 }}>
+      <KanbanBoard
+        columns={columns}
+        cards={cards}
+        selectedCardId={selectedId}
+        focusedColumnId={cards.find((card) => card.id === selectedId)?.columnId}
+        onSelectCard={setSelectedId}
+        onMove={(event) => {
+          setCards((prev) => applyCardMove(prev, event));
+          setSelectedId(event.cardId);
+        }}
+      />
+    </div>
+  );
+}
+
+export const Default: Story = {
+  render: () => <DefaultStory />,
 };
 
 export const EmptyColumns: Story = {

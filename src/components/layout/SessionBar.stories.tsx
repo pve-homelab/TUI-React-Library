@@ -33,18 +33,20 @@ export const Default: Story = {
   },
 };
 
+function SelectableStory() {
+  const [activeId, setActiveId] = useState('1');
+  return (
+    <SessionBar
+      sessions={sessions.map((session) => ({
+        ...session,
+        active: session.id === activeId,
+      }))}
+      onSelect={setActiveId}
+      trailing={<KeyboardShortcutHint keys={['C-b', 'c']} label="new" />}
+    />
+  );
+}
+
 export const Selectable: Story = {
-  render: () => {
-    const [activeId, setActiveId] = useState('1');
-    return (
-      <SessionBar
-        sessions={sessions.map((session) => ({
-          ...session,
-          active: session.id === activeId,
-        }))}
-        onSelect={setActiveId}
-        trailing={<KeyboardShortcutHint keys={['C-b', 'c']} label="new" />}
-      />
-    );
-  },
+  render: () => <SelectableStory />,
 };

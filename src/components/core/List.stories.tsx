@@ -39,29 +39,31 @@ export const Default: Story = {
   ),
 };
 
-export const KeyboardNav: Story = {
-  render: () => {
-    const [selected, setSelected] = useState(0);
-    const { activeIndex, onKeyDown } = useKeyboardNav({
-      count: items.length,
-      onSelect: setSelected,
-    });
+function KeyboardNavStory() {
+  const [selected, setSelected] = useState(0);
+  const { activeIndex, onKeyDown } = useKeyboardNav({
+    count: items.length,
+    onSelect: setSelected,
+  });
 
-    return (
-      <List tabIndex={0} onKeyDown={onKeyDown} style={{ maxWidth: 280 }}>
-        {items.map((item, index) => (
-          <ListItem
-            key={item.id}
-            selected={index === selected}
-            focused={index === activeIndex}
-            leading="○"
-            trailing={item.harness}
-            onClick={() => setSelected(index)}
-          >
-            {item.label}
-          </ListItem>
-        ))}
-      </List>
-    );
-  },
+  return (
+    <List tabIndex={0} onKeyDown={onKeyDown} style={{ maxWidth: 280 }}>
+      {items.map((item, index) => (
+        <ListItem
+          key={item.id}
+          selected={index === selected}
+          focused={index === activeIndex}
+          leading="○"
+          trailing={item.harness}
+          onClick={() => setSelected(index)}
+        >
+          {item.label}
+        </ListItem>
+      ))}
+    </List>
+  );
+}
+
+export const KeyboardNav: Story = {
+  render: () => <KeyboardNavStory />,
 };

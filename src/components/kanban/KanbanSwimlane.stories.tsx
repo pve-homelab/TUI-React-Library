@@ -50,29 +50,31 @@ export default meta;
 
 type Story = StoryObj<typeof KanbanSwimlane>;
 
-export const Default: Story = {
-  render: () => {
-    const [cards, setCards] = useState(initialCards);
-    const [selectedId, setSelectedId] = useState('c1');
+function DefaultStory() {
+  const [cards, setCards] = useState(initialCards);
+  const [selectedId, setSelectedId] = useState('c1');
 
-    return (
-      <div style={{ height: 420, display: 'flex', flexDirection: 'column' }}>
-        <KanbanSwimlane title="Delivery" subtitle="drag across columns · H/L shove">
-          <KanbanBoard
-            columns={columns}
-            cards={cards}
-            selectedCardId={selectedId}
-            focusedColumnId={cards.find((card) => card.id === selectedId)?.columnId}
-            onSelectCard={setSelectedId}
-            onMove={(event) => {
-              setCards((prev) => applyCardMove(prev, event));
-              setSelectedId(event.cardId);
-            }}
-          />
-        </KanbanSwimlane>
-      </div>
-    );
-  },
+  return (
+    <div style={{ height: 420, display: 'flex', flexDirection: 'column' }}>
+      <KanbanSwimlane title="Delivery" subtitle="drag across columns · H/L shove">
+        <KanbanBoard
+          columns={columns}
+          cards={cards}
+          selectedCardId={selectedId}
+          focusedColumnId={cards.find((card) => card.id === selectedId)?.columnId}
+          onSelectCard={setSelectedId}
+          onMove={(event) => {
+            setCards((prev) => applyCardMove(prev, event));
+            setSelectedId(event.cardId);
+          }}
+        />
+      </KanbanSwimlane>
+    </div>
+  );
+}
+
+export const Default: Story = {
+  render: () => <DefaultStory />,
 };
 
 export const StackedLanes: Story = {

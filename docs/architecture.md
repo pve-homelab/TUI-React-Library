@@ -2,22 +2,22 @@
 
 Production-grade React component library inspired by **herdr.dev**, **herdr-board**, and **tmux**.
 
-Package name: `tui-react-library`
+Package name: `tui-react-library` · version **1.0.0**
 
 ## Design principles
 
 1. **Terminal-first aesthetics** — Catppuccin-inspired palette (herdr default theme family), box-drawing borders, monospace typography, dense information density.
-2. **Keyboard-first UX** — Every interactive surface is navigable without a mouse; shortcuts mirror tmux/herdr metaphors (`h/j/k/l`, prefix-style hints).
+2. **Keyboard-first UX** — Interactive surfaces navigable without a mouse; shortcuts mirror tmux/herdr metaphors (`h/j/k/l`, prefix-style hints).
 3. **Composable primitives** — Small layout atoms (`Pane`, `SplitPane`, `TuiFrame`) compose into sessions, boards, and dashboards.
 4. **Token-driven theming** — CSS custom properties injected by `ThemeProvider`; no global style leakage.
-5. **Cloudscape-level maturity** — Typed APIs, Storybook docs, tests, accessibility, publishable package.
+5. **Cloudscape-level maturity** — Typed APIs, Storybook docs, tests, accessibility basics, publishable package.
 
 ## Inspiration mapping
 
 | Source | Patterns extracted | Library manifestation |
 |--------|--------------------|------------------------|
 | herdr.dev TUI | Sidebar + tab surface + panes; agent status dots; mode overlays; status/mode bars | `SessionBar`, `StatusBar`, `TuiFrame`, `List`, status tokens |
-| herdr-board | Columns, cards, DnD, compact/regular/wide, keyboard move (`H`/`L`), badges | `KanbanBoard`, `KanbanColumn`, `KanbanCard`, `@dnd-kit` |
+| herdr-board | Columns, cards, DnD, compact/regular/wide, keyboard move (`H`/`L`), badges | `KanbanBoard`, `KanbanColumn`, `KanbanCard`, `KanbanSwimlane`, `@dnd-kit` |
 | tmux | Sessions → windows → panes; `Ctrl+b %/"` splits; status bar | `SplitPaneHorizontal/Vertical`, `StatusBar`, `SessionBar` |
 
 ## Design system tokens
@@ -45,46 +45,59 @@ Package name: `tui-react-library`
 - Radius: 0–2px (TUI-flat); optional `soft` theme bump to 4px
 - Shadows: none by default (terminal flat); soft elevation only for overlays
 
-## Component taxonomy
+## Component taxonomy (shipped)
+
+Public API is the package root export surface in `src/index.ts`. Import styles via `tui-react-library/styles.css`.
+
+### Theme
+
+- `ThemeProvider`, `useTheme`, `useThemeOptional`
+- `createTheme`, `defaultTheme`, `themeToCssVars` (+ token types)
 
 ### Layout & tmux primitives
 
 - `Pane` — content region with optional title/focus
 - `SplitPaneHorizontal` / `SplitPaneVertical` — resizable splits
 - `StatusBar` — left/center/right segments
-- `SessionBar` / `TabBar` — session/window tabs
-- `TuiWindow` / `TuiFrame` — bordered frame with title bar
+- `SessionBar` / `TabBar` — session/window tabs (`TabBar` is an alias of `SessionBar`)
+- `TuiFrame` / `TuiWindow` — bordered frame with title bar (`TuiWindow` is an alias of `TuiFrame`)
+- `IconButton` — labeled icon control (exported from layout)
 
 ### Core TUI
 
-- `Button`, `IconButton`
+- `Button`
 - `Input`, `TextArea`
-- `Select`, `Dropdown`
-- `Checkbox`, `Toggle`, `Radio`
+- `Select` / `Dropdown` (`Dropdown` is an alias of `Select`)
+- `Checkbox`, `Toggle`, `Radio`, `RadioGroup`
 - `List`, `ListItem`
 - `Modal`, `Popover`, `Tooltip`
 - `Menu`, `CommandPalette`
 
 ### Kanban
 
-- `KanbanBoard` — DnD context + column layout
+- `KanbanBoard` — DnD context + column layout; seamless cross-column drag
 - `KanbanColumn` — header, count, droppable list
-- `KanbanCard` — title, meta, tags, status
-- `KanbanSwimlane` — optional horizontal grouping
+- `KanbanCard` / `KanbanCardContent` — title, meta, tags, status
+- `KanbanSwimlane` — optional horizontal grouping of columns
+- `applyCardMove` + types (`KanbanCardData`, `KanbanColumnData`, `KanbanMoveEvent`, `AgentStatus`, `KanbanTag`, `KanbanCardRenderer`)
 
 ### Utility
 
 - `KeyboardShortcutHint`
-- `Toast` (+ provider)
+- `Toast`, `ToastProvider`, `useToast`
 - `LoadingSpinner`, `Skeleton`
 - `ScrollableContainer`
+
+### Hooks
+
+- `useKeyboardNav`, `useControllableState`, `useId`
 
 ## Folder structure
 
 ```
 src/
   theme/           # tokens, ThemeProvider, CSS vars
-  hooks/           # useKeyboardNav, useControllable, useId
+  hooks/           # useKeyboardNav, useControllableState, useId
   components/
     layout/
     core/
@@ -113,21 +126,13 @@ examples/
 
 ## API conventions
 
-- Props: `variant`, `size`, `disabled`, `className`, `style`
+- Props: `variant`, `size`, `disabled`, `className`, `style` where applicable
 - Events: `onChange`, `onSelect`, `onMove` (Kanban) with typed payloads
-- Refs: forwardRef on interactive roots
+- Refs: `forwardRef` on interactive roots
+- DOM clashes: `Omit<HTMLAttributes<...>, 'title' | 'onSelect'>` (or specific keys) when component props diverge from HTML
 - Accessibility: roles, `aria-*`, visible focus rings using accent token
 - Theming: wrap app in `<ThemeProvider theme="mocha" | "latte" accent="blue">`
-
-## Layered build order
-
-1. Theme tokens + provider
-2. Layout primitives
-3. Core TUI controls
-4. Kanban + DnD
-5. Utilities
-6. Stories, tests, examples
-7. Publish config + summary
+- No runtime CSS-in-JS; CSS Modules + CSS custom properties only
 
 ## Non-goals (v1)
 
@@ -135,11 +140,15 @@ examples/
 - Server/daemon integration with herdr socket protocol
 - Native terminal rendering (this is a web React library)
 - Every tmux plugin metaphor
+- CI / GitHub Actions
+- New headless UI dependency (Radix/Ark) — stay on primitives + CSS Modules
 
 ## Success criteria
 
-- `npm run build` emits ESM, CJS, and `.d.ts`
-- `npm test` passes for core + kanban
-- Storybook documents all public components
+- `npm run build` emits ESM, CJS, `.d.ts`, and `styles.css`
+- `npm run typecheck` / `lint` / `test` green
+- Storybook documents public components; a11y clean on defaults
+- Keyboard maps in [`docs/summary.md`](./summary.md)
 - Example apps consume the library via workspace/path dependency
 - README + `docs/summary.md` explain install, theming, extension
+- Package version `1.0.0`

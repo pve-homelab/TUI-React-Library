@@ -1,6 +1,6 @@
 {
   "name": "tui-react-library",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Production-grade React TUI component library inspired by herdr.dev, herdr-board, and tmux",
   "license": "MIT",
   "type": "module",

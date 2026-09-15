@@ -40,22 +40,24 @@ export const Default: Story = {
   },
 };
 
+function WithHandlersStory() {
+  const [last, setLast] = useState<string | null>(null);
+  const items: MenuItem[] = [
+    { id: 'new', label: 'New file', onSelect: () => setLast('New file') },
+    { id: 'open', label: 'Open…', onSelect: () => setLast('Open…') },
+    { id: 'save', label: 'Save', onSelect: () => setLast('Save') },
+    { id: 'export', label: 'Export', disabled: true },
+  ];
+  return (
+    <div>
+      <Menu aria-label="File" items={items} />
+      <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
+        Last selected: {last ?? '—'}
+      </p>
+    </div>
+  );
+}
+
 export const WithHandlers: Story = {
-  render: () => {
-    const [last, setLast] = useState<string | null>(null);
-    const items: MenuItem[] = [
-      { id: 'new', label: 'New file', onSelect: () => setLast('New file') },
-      { id: 'open', label: 'Open…', onSelect: () => setLast('Open…') },
-      { id: 'save', label: 'Save', onSelect: () => setLast('Save') },
-      { id: 'export', label: 'Export', disabled: true },
-    ];
-    return (
-      <div>
-        <Menu aria-label="File" items={items} />
-        <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
-          Last selected: {last ?? '—'}
-        </p>
-      </div>
-    );
-  },
+  render: () => <WithHandlersStory />,
 };

@@ -1,17 +1,17 @@
 # tui-react-library
 
-Production-grade React TUI component library inspired by [herdr.dev](https://herdr.dev), [herdr-board](https://github.com/nelsonPires5/herdr-board), and [tmux](https://tmux.app/).
+Production-ready React TUI component library inspired by [herdr.dev](https://herdr.dev), [herdr-board](https://github.com/nelsonPires5/herdr-board), and [tmux](https://tmux.app/).
 
-Catppuccin-inspired tokens, keyboard-first controls, split panes, status/session bars, and a Kanban board with drag-and-drop.
+Catppuccin-inspired tokens, keyboard-first controls, split panes, status/session bars, overlays (Modal, Menu, CommandPalette, …), and a Kanban board with seamless cross-column drag-and-drop.
 
 ## Status
 
-Early scaffold. Design docs live in [`docs/architecture.md`](docs/architecture.md).
+**v1.0.0 — production.** Full taxonomy shipped. Design notes: [`docs/architecture.md`](docs/architecture.md). Usage guide: [`docs/summary.md`](docs/summary.md).
 
 Runnable apps:
 
 - [`examples/kanban-demo`](examples/kanban-demo) — herdr-board style Kanban
-- [`examples/tmux-dashboard`](examples/tmux-dashboard) — tmux split panes + session/status bars
+- [`examples/tmux-dashboard`](examples/tmux-dashboard) — tmux splits + session/status bars + CommandPalette
 
 ## Install
 
@@ -63,12 +63,13 @@ Tokens are CSS variables (`--tui-bg`, `--tui-accent`, …) scoped to the provide
 
 ## Component map
 
-- **Layout** — `Pane`, `SplitPaneHorizontal`, `SplitPaneVertical`, `StatusBar`, `SessionBar` / `TabBar`, `TuiFrame`
-- **Core** — `Button`, `Input`, `List`, `Modal`, `CommandPalette`, …
-- **Kanban** — `KanbanBoard`, `KanbanColumn`, `KanbanCard`
-- **Utility** — `KeyboardShortcutHint`, `Toast`, `Skeleton`, …
+- **Layout** — `Pane`, `SplitPaneHorizontal`, `SplitPaneVertical`, `StatusBar`, `SessionBar` / `TabBar`, `TuiFrame` / `TuiWindow`, `IconButton`
+- **Core** — `Button`, `Input`, `TextArea`, `Select` / `Dropdown`, `Checkbox`, `Toggle`, `Radio` / `RadioGroup`, `List`, `Modal`, `Popover`, `Tooltip`, `Menu`, `CommandPalette`
+- **Kanban** — `KanbanBoard`, `KanbanColumn`, `KanbanCard`, `KanbanCardContent`, `KanbanSwimlane`, `applyCardMove`
+- **Utility** — `KeyboardShortcutHint`, `Toast` / `ToastProvider`, `LoadingSpinner`, `Skeleton`, `ScrollableContainer`
+- **Hooks** — `useKeyboardNav`, `useControllableState`, `useId`
 
-See [`docs/architecture.md`](docs/architecture.md) for the full taxonomy.
+Keyboard maps and extension points: [`docs/summary.md`](docs/summary.md). Full taxonomy: [`docs/architecture.md`](docs/architecture.md).
 
 ## License
 
