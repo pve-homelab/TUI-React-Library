@@ -20,6 +20,7 @@ export function KanbanColumn({ column, cards, focused, children }: KanbanColumnP
 
   return (
     <section
+      ref={setNodeRef}
       className={cx(styles.column, focused && styles.columnFocused, isOver && styles.columnOver)}
       data-column-id={column.id}
     >
@@ -30,7 +31,7 @@ export function KanbanColumn({ column, cards, focused, children }: KanbanColumnP
         </div>
         <span className={styles.count}>{cards.length}</span>
       </header>
-      <div ref={setNodeRef} className={styles.columnBody}>
+      <div className={styles.columnBody}>
         <SortableContext items={cards.map((card) => card.id)} strategy={verticalListSortingStrategy}>
           {children}
         </SortableContext>
