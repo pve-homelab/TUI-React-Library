@@ -36,11 +36,16 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
 
     const filtered = items.filter((item) => matchesQuery(item, query));
 
+    const activateItem = (index: number) => {
+      const item = filtered[index];
+      if (!item) return;
+      item.onSelect?.();
+      onClose();
+    };
+
     const { activeIndex, setActiveIndex, onKeyDown: onNavKeyDown } = useKeyboardNav({
       count: filtered.length,
-      onSelect: (index) => {
-        filtered[index]?.onSelect?.();
-      },
+      onSelect: activateItem,
     });
 
     useEffect(() => {
@@ -97,7 +102,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                   onMouseEnter={() => setActiveIndex(index)}
                   onClick={() => {
                     setActiveIndex(index);
-                    item.onSelect?.();
+                    activateItem(index);
                   }}
                 >
                   {item.label}

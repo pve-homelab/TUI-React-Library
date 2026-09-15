@@ -26,6 +26,7 @@ export const Menu = forwardRef<HTMLUListElement, MenuProps>(function Menu(
 ) {
   const { activeIndex, setActiveIndex, onKeyDown: onNavKeyDown } = useKeyboardNav({
     count: items.length,
+    isDisabled: (index) => !!items[index]?.disabled,
     onSelect: (index) => {
       const item = items[index];
       if (!item || item.disabled) return;

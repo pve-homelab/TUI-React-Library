@@ -52,6 +52,27 @@ describe('Select', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
+  it('skips disabled options with ArrowDown', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    wrap(
+      <Select
+        options={[
+          { value: 'alpha', label: 'Alpha' },
+          { value: 'beta', label: 'Beta', disabled: true },
+          { value: 'gamma', label: 'Gamma' },
+        ]}
+        placeholder="Pick one"
+        onChange={onChange}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Pick one' }));
+    await user.keyboard('{ArrowDown}{Enter}');
+
+    expect(onChange).toHaveBeenCalledWith('gamma');
+  });
+
   it('Dropdown is an alias of Select', () => {
     expect(Dropdown).toBe(Select);
   });

@@ -80,15 +80,15 @@ Give the list `tabIndex={0}` and pass `onKeyDown` from the hook. Mark the active
 
 ### SessionBar
 
-`SessionBar` renders a `role="tablist"` of native `role="tab"` buttons:
+`SessionBar` renders a `role="tablist"` of native `role="tab"` buttons with horizontal `useKeyboardNav` (roving `tabIndex`):
 
 | Key | Action |
 |-----|--------|
-| `Tab` / `Shift+Tab` | Move focus between session tabs (and trailing controls) |
-| `Enter` / `Space` | Activate the focused tab (`onSelect(id)`) |
+| `←` / `→` or `h` / `l` | Move focus between session tabs |
+| `Home` / `End` | First / last tab |
+| `Enter` / `Space` | Activate focused tab (`onSelect(id)`) |
+| `Tab` / `Shift+Tab` | Leave the tablist (trailing controls remain in tab order) |
 | Click | Select session |
-
-For arrow/`h`/`l` roving focus, compose horizontal `useKeyboardNav` around the bar (same pattern as List).
 
 ### Kanban
 
@@ -111,7 +111,7 @@ Modal shell + filter `Input` + navigable `List`. Global open shortcuts are consu
 | Type | Filter by `label` / `keywords` |
 | `↑` / `↓` | Move active command |
 | `Home` / `End` | First / last filtered item |
-| `Enter` | Run active item `onSelect` |
+| `Enter` | Run active item `onSelect`, then call `onClose` |
 | `Escape` | Close |
 
 ### Menu
@@ -120,8 +120,8 @@ Flat `role="menu"` (no nested submenus in v1). Focus the menu root:
 
 | Key | Action |
 |-----|--------|
-| `↑` / `↓` or `k` / `j` | Move active item |
-| `Home` / `End` | First / last item |
+| `↑` / `↓` or `k` / `j` | Move active item (skips `disabled`) |
+| `Home` / `End` | First / last enabled item |
 | `Enter` / `Space` | Activate `onSelect` (skips `disabled`) |
 
 ## Examples

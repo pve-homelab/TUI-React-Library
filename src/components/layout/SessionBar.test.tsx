@@ -31,6 +31,35 @@ describe('SessionBar', () => {
     expect(screen.getByRole('tab', { name: /1:agent/ })).toHaveAttribute('aria-selected', 'false');
   });
 
+  it('moves between tabs with ArrowRight / ArrowLeft and activates with Enter', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    wrap(<SessionBar sessions={sessions} onSelect={onSelect} />);
+
+    const first = screen.getByRole('tab', { name: '0:zsh' });
+    first.focus();
+
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: /1:agent/ })).toHaveFocus();
+
+    await user.keyboard('{Enter}');
+    expect(onSelect).toHaveBeenCalledWith('1');
+
+    await user.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('tab', { name: '0:zsh' })).toHaveFocus();
+  });
+
+  it('supports horizontal vim keys h / l', async () => {
+    const user = userEvent.setup();
+    wrap(<SessionBar sessions={sessions} />);
+
+    screen.getByRole('tab', { name: '0:zsh' }).focus();
+    await user.keyboard('l');
+    expect(screen.getByRole('tab', { name: /1:agent/ })).toHaveFocus();
+    await user.keyboard('h');
+    expect(screen.getByRole('tab', { name: '0:zsh' })).toHaveFocus();
+  });
+
   it('TabBar is an alias of SessionBar', () => {
     expect(TabBar).toBe(SessionBar);
   });

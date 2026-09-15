@@ -1,4 +1,13 @@
-import { forwardRef, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useRef,
+  type ButtonHTMLAttributes,
+  type HTMLAttributes,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
+import { useKeyboardNav } from '../../hooks/useKeyboardNav';
 import { cx } from '../../utils/cx';
 import styles from './SessionBar.module.css';
 
@@ -16,19 +25,65 @@ export interface SessionBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
 }
 
 export const SessionBar = forwardRef<HTMLDivElement, SessionBarProps>(function SessionBar(
-  { sessions, onSelect, trailing, className, ...rest },
+  { sessions, onSelect, trailing, className, onKeyDown, ...rest },
   ref,
 ) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const { activeIndex, setActiveIndex, onKeyDown: onNavKeyDown } = useKeyboardNav({
+    count: sessions.length,
+    orientation: 'horizontal',
+    onSelect: (index) => {
+      const session = sessions[index];
+      if (session) onSelect?.(session.id);
+    },
+  });
+
+  useEffect(() => {
+    const selected = sessions.findIndex((session) => session.active);
+    if (selected >= 0) setActiveIndex(selected);
+  }, [sessions, setActiveIndex]);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const activeEl = document.activeElement;
+    if (!root || !activeEl || !root.contains(activeEl)) return;
+    tabRefs.current[activeIndex]?.focus({ preventScroll: true });
+  }, [activeIndex]);
+
+  const setRootRef = (node: HTMLDivElement | null) => {
+    rootRef.current = node;
+    if (typeof ref === 'function') ref(node);
+    else if (ref) ref.current = node;
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    onNavKeyDown(event);
+    onKeyDown?.(event);
+  };
+
   return (
-    <div ref={ref} className={cx(styles.bar, className)} role="tablist" {...rest}>
+    <div
+      ref={setRootRef}
+      className={cx(styles.bar, className)}
+      role="tablist"
+      onKeyDown={handleKeyDown}
+      {...rest}
+    >
       <div className={styles.tabs}>
-        {sessions.map((session) => (
+        {sessions.map((session, index) => (
           <button
             key={session.id}
+            ref={(node) => {
+              tabRefs.current[index] = node;
+            }}
             type="button"
             role="tab"
+            tabIndex={index === activeIndex ? 0 : -1}
             aria-selected={!!session.active}
             className={cx(styles.tab, session.active && styles.active)}
+            onFocus={() => setActiveIndex(index)}
             onClick={() => onSelect?.(session.id)}
           >
             <span className={styles.label}>{session.label}</span>

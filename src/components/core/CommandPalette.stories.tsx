@@ -17,8 +17,9 @@ const meta: Meta<typeof CommandPalette> = {
           '- Type in the filter to match `label` / `keywords`',
           '- `↑` / `↓`: move active item',
           '- `Home` / `End`: first / last item',
-          '- `Enter`: activate `onSelect` on the active item',
+          '- `Enter`: activate `onSelect` on the active item, then `onClose`',
           '- `Escape`: close (Modal)',
+          '- Click: same as Enter (activate + close)',
         ].join('\n'),
       },
     },
@@ -50,14 +51,7 @@ function DefaultStory() {
       <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
         Last selected: {last ?? '—'}
       </p>
-      <CommandPalette
-        open={open}
-        onClose={() => setOpen(false)}
-        items={demoItems((label) => {
-          setLast(label);
-          setOpen(false);
-        })}
-      />
+      <CommandPalette open={open} onClose={() => setOpen(false)} items={demoItems(setLast)} />
     </div>
   );
 }
@@ -89,14 +83,7 @@ function ConsumerOwnsShortcutStory() {
       <p style={{ marginTop: 8, fontSize: 12, opacity: 0.7 }}>
         Last selected: {last ?? '—'}
       </p>
-      <CommandPalette
-        open={open}
-        onClose={() => setOpen(false)}
-        items={demoItems((label) => {
-          setLast(label);
-          setOpen(false);
-        })}
-      />
+      <CommandPalette open={open} onClose={() => setOpen(false)} items={demoItems(setLast)} />
     </div>
   );
 }

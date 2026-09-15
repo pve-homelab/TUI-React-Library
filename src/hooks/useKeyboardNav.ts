@@ -6,6 +6,53 @@ export interface KeyboardNavOptions {
   orientation?: 'vertical' | 'horizontal';
   enabled?: boolean;
   onSelect?: (index: number) => void;
+  /** When true for an index, arrow / Home / End navigation skips it. */
+  isDisabled?: (index: number) => boolean;
+}
+
+function findEnabledIndex(
+  count: number,
+  start: number,
+  delta: number,
+  loop: boolean,
+  isDisabled?: (index: number) => boolean,
+): number {
+  if (count === 0) return 0;
+
+  let next = start;
+  for (let stepped = 0; stepped < count; stepped += 1) {
+    next += delta;
+    if (loop) {
+      next = ((next % count) + count) % count;
+    } else if (next < 0 || next >= count) {
+      return start;
+    }
+    if (!isDisabled?.(next)) {
+      return next;
+    }
+  }
+
+  return start;
+}
+
+function findEdgeEnabledIndex(
+  count: number,
+  fromEnd: boolean,
+  isDisabled?: (index: number) => boolean,
+): number {
+  if (count === 0) return 0;
+
+  if (fromEnd) {
+    for (let i = count - 1; i >= 0; i -= 1) {
+      if (!isDisabled?.(i)) return i;
+    }
+  } else {
+    for (let i = 0; i < count; i += 1) {
+      if (!isDisabled?.(i)) return i;
+    }
+  }
+
+  return fromEnd ? count - 1 : 0;
 }
 
 export function useKeyboardNav({
@@ -14,6 +61,7 @@ export function useKeyboardNav({
   orientation = 'vertical',
   enabled = true,
   onSelect,
+  isDisabled,
 }: KeyboardNavOptions) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,15 +76,9 @@ export function useKeyboardNav({
   const move = useCallback(
     (delta: number) => {
       if (count === 0) return;
-      setActiveIndex((current) => {
-        const next = current + delta;
-        if (loop) {
-          return ((next % count) + count) % count;
-        }
-        return Math.max(0, Math.min(count - 1, next));
-      });
+      setActiveIndex((current) => findEnabledIndex(count, current, delta, loop, isDisabled));
     },
-    [count, loop],
+    [count, isDisabled, loop],
   );
 
   const onKeyDown = useCallback(
@@ -56,16 +98,18 @@ export function useKeyboardNav({
         move(1);
       } else if (event.key === 'Home') {
         event.preventDefault();
-        setActiveIndex(0);
+        setActiveIndex(findEdgeEnabledIndex(count, false, isDisabled));
       } else if (event.key === 'End') {
         event.preventDefault();
-        setActiveIndex(count - 1);
+        setActiveIndex(findEdgeEnabledIndex(count, true, isDisabled));
       } else if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        onSelect?.(activeIndex);
+        if (!isDisabled?.(activeIndex)) {
+          onSelect?.(activeIndex);
+        }
       }
     },
-    [activeIndex, count, enabled, move, onSelect, orientation],
+    [activeIndex, count, enabled, isDisabled, move, onSelect, orientation],
   );
 
   return { activeIndex, setActiveIndex, onKeyDown, move };

@@ -56,10 +56,11 @@ describe('CommandPalette', () => {
   it('moves highlight with Arrow keys and activates onSelect with Enter', async () => {
     const user = userEvent.setup();
     const onSelect = vi.fn();
+    const onClose = vi.fn();
     wrap(
       <CommandPalette
         open
-        onClose={() => {}}
+        onClose={onClose}
         items={[
           { id: 'new', label: 'New file' },
           { id: 'open', label: 'Open file', onSelect },
@@ -83,6 +84,24 @@ describe('CommandPalette', () => {
 
     await user.keyboard('{Enter}');
     expect(onSelect).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('closes via onClose after click activation', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    const onClose = vi.fn();
+    wrap(
+      <CommandPalette
+        open
+        onClose={onClose}
+        items={[{ id: 'save', label: 'Save', onSelect }, { id: 'quit', label: 'Quit' }]}
+      />,
+    );
+
+    await user.click(screen.getByRole('option', { name: 'Save' }));
+    expect(onSelect).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('Escape closes via Modal onClose', async () => {

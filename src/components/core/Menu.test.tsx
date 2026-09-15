@@ -87,4 +87,29 @@ describe('Menu', () => {
 
     expect(onSelect).toHaveBeenCalledTimes(1);
   });
+
+  it('skips disabled items with ArrowDown', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    wrap(
+      <Menu
+        aria-label="Actions"
+        items={[
+          { id: 'cut', label: 'Cut' },
+          { id: 'copy', label: 'Copy', disabled: true },
+          { id: 'paste', label: 'Paste', onSelect },
+        ]}
+      />,
+    );
+
+    const menu = screen.getByRole('menu', { name: 'Actions' });
+    menu.focus();
+    await user.keyboard('{ArrowDown}{Enter}');
+
+    expect(within(menu).getByRole('menuitem', { name: 'Paste' })).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
 });

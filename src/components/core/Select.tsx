@@ -59,6 +59,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   const { activeIndex, setActiveIndex, onKeyDown: onNavKeyDown } = useKeyboardNav({
     count: options.length,
     enabled: open && !disabled,
+    isDisabled: (index) => !!options[index]?.disabled,
     onSelect: (index) => {
       const option = options[index];
       if (!option || option.disabled) return;

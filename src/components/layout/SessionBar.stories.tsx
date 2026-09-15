@@ -14,6 +14,18 @@ const meta: Meta<typeof SessionBar> = {
   component: SessionBar,
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: [
+          'Session / window tab bar (`role="tablist"`) with horizontal `useKeyboardNav`.',
+          '',
+          '**Keyboard map**',
+          '- `←` / `→` (or `h` / `l`): move focus between tabs',
+          '- `Home` / `End`: first / last tab',
+          '- `Enter` / `Space`: activate focused tab (`onSelect`)',
+        ].join('\n'),
+      },
+    },
   },
 };
 
