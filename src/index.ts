@@ -38,6 +38,8 @@ export { CommandPalette } from './components/core/CommandPalette';
 export type { CommandPaletteProps, CommandItem } from './components/core/CommandPalette';
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
+export { Toast, ToastProvider, useToast } from './components/utility/Toast';
+export type { ToastOptions, ToastProps, ToastProviderProps } from './components/utility/Toast';
 
 export { KanbanBoard } from './components/kanban/KanbanBoard';
 export { KanbanColumn } from './components/kanban/KanbanColumn';
