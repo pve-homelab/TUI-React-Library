@@ -51,11 +51,13 @@ export { KanbanBoard } from './components/kanban/KanbanBoard';
 export { KanbanColumn } from './components/kanban/KanbanColumn';
 export { KanbanCard } from './components/kanban/KanbanCard';
 export { KanbanCardContent } from './components/kanban/KanbanCardContent';
+export { KanbanSwimlane } from './components/kanban/KanbanSwimlane';
 export { applyCardMove } from './components/kanban/reorder';
 export type { KanbanBoardProps } from './components/kanban/KanbanBoard';
 export type { KanbanColumnProps } from './components/kanban/KanbanColumn';
 export type { KanbanCardProps } from './components/kanban/KanbanCard';
 export type { KanbanCardContentProps } from './components/kanban/KanbanCardContent';
+export type { KanbanSwimlaneProps } from './components/kanban/KanbanSwimlane';
 export type {
   AgentStatus,
   KanbanCardData,

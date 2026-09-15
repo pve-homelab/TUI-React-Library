@@ -2,7 +2,6 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
-  closestCorners,
   defaultDropAnimationSideEffects,
   useSensor,
   useSensors,
@@ -14,6 +13,7 @@ import {
 import { useEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { cx } from '../../utils/cx';
+import { kanbanCollisionDetection } from './collision';
 import { KanbanCard } from './KanbanCard';
 import { KanbanCardContent } from './KanbanCardContent';
 import { KanbanColumn } from './KanbanColumn';
@@ -223,7 +223,7 @@ export function KanbanBoard({
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCorners}
+      collisionDetection={kanbanCollisionDetection}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
