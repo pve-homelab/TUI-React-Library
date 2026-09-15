@@ -1,0 +1,12 @@
+.container {
+  overflow: auto;
+  min-height: 0;
+  outline: none;
+  font-family: var(--tui-font);
+  color: var(--tui-text);
+}
+
+.container:focus-visible {
+  outline: 2px solid var(--tui-focus);
+  outline-offset: 1px;
+}

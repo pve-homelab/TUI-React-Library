@@ -40,6 +40,12 @@ export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint'
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
 export { Toast, ToastProvider, useToast } from './components/utility/Toast';
 export type { ToastOptions, ToastProps, ToastProviderProps } from './components/utility/Toast';
+export { LoadingSpinner } from './components/utility/LoadingSpinner';
+export type { LoadingSpinnerProps } from './components/utility/LoadingSpinner';
+export { Skeleton } from './components/utility/Skeleton';
+export type { SkeletonProps } from './components/utility/Skeleton';
+export { ScrollableContainer } from './components/utility/ScrollableContainer';
+export type { ScrollableContainerProps } from './components/utility/ScrollableContainer';
 
 export { KanbanBoard } from './components/kanban/KanbanBoard';
 export { KanbanColumn } from './components/kanban/KanbanColumn';

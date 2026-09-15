@@ -1,0 +1,36 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  color: var(--tui-subtext0);
+  font-family: var(--tui-font);
+  font-size: var(--tui-fs-sm);
+}
+
+.spinner {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid var(--tui-surface2);
+  border-top-color: var(--tui-accent);
+  border-radius: 50%;
+  animation: tui-spin 0.7s linear infinite;
+}
+
+.label {
+  color: var(--tui-subtext1);
+}
+
+@keyframes tui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--tui-surface2);
+    border-right-color: var(--tui-accent);
+  }
+}
