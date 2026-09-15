@@ -24,6 +24,8 @@ export { Toggle } from './components/core/Toggle';
 export type { ToggleProps } from './components/core/Toggle';
 export { Radio, RadioGroup } from './components/core/Radio';
 export type { RadioProps, RadioGroupProps } from './components/core/Radio';
+export { Select, Dropdown } from './components/core/Select';
+export type { SelectProps, SelectOption } from './components/core/Select';
 
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';

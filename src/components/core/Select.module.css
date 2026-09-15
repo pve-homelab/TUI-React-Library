@@ -1,0 +1,95 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tui-space-2);
+  width: 100%;
+  min-height: 28px;
+  padding: var(--tui-space-1) var(--tui-space-3);
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-surface0);
+  color: var(--tui-text);
+  font-size: var(--tui-fs-sm);
+  cursor: pointer;
+  text-align: left;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--tui-focus);
+  outline-offset: 1px;
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: var(--tui-subtext0);
+}
+
+.caret {
+  flex-shrink: 0;
+  color: var(--tui-subtext1);
+  font-size: var(--tui-fs-xs);
+}
+
+.listbox {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + var(--tui-space-1));
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: var(--tui-space-1) 0;
+  list-style: none;
+  border: var(--tui-border-width) solid var(--tui-border);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-surface1);
+  max-height: 12rem;
+  overflow: auto;
+}
+
+.option {
+  padding: var(--tui-space-1) var(--tui-space-3);
+  font-size: var(--tui-fs-sm);
+  color: var(--tui-text);
+  cursor: pointer;
+}
+
+.option:hover:not(.optionDisabled) {
+  background: var(--tui-surface0);
+}
+
+.selected {
+  background: var(--tui-accent-muted);
+}
+
+.focused {
+  outline: 1px solid var(--tui-accent);
+  outline-offset: -1px;
+}
+
+.optionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
