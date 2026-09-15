@@ -34,6 +34,8 @@ export { Tooltip } from './components/core/Tooltip';
 export type { TooltipProps } from './components/core/Tooltip';
 export { Menu } from './components/core/Menu';
 export type { MenuProps, MenuItem } from './components/core/Menu';
+export { CommandPalette } from './components/core/CommandPalette';
+export type { CommandPaletteProps, CommandItem } from './components/core/CommandPalette';
 export { KeyboardShortcutHint } from './components/utility/KeyboardShortcutHint';
 export type { KeyboardShortcutHintProps } from './components/utility/KeyboardShortcutHint';
 
