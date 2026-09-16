@@ -3,11 +3,13 @@ dist
 storybook-static
 coverage
 *.log
+*.pid
 .DS_Store
 .env
 .env.*
 examples/*/node_modules
 examples/*/dist
 
+.cursor/
 .worktrees/
 .superpowers/sdd/
