@@ -15,11 +15,23 @@ Runnable apps:
 
 ## Install
 
+Distributed via the public GitHub repo (not published to npm). Install from git:
+
 ```bash
-npm install tui-react-library
+npm install github:pve-homelab/TUI-React-Library
+# or a branch / tag:
+# npm install github:pve-homelab/TUI-React-Library#feat/v1-production
+# npm install github:pve-homelab/TUI-React-Library#v1.0.0
 ```
 
-Peer deps: `react` and `react-dom` (^18.2 || ^19).
+Clone for local development / path linking:
+
+```bash
+git clone https://github.com/pve-homelab/TUI-React-Library.git
+cd TUI-React-Library && npm install && npm run build
+```
+
+Peer deps: `react` and `react-dom` (^18.2 || ^19). A `prepare` script builds `dist/` on install from git.
 
 ```tsx
 import { ThemeProvider, Pane, StatusBar, KanbanBoard } from 'tui-react-library';

@@ -4,11 +4,13 @@ Production React TUI component library (`1.0.0`) inspired by herdr.dev, herdr-bo
 
 ## Install
 
+Public GitHub only (not on the npm registry):
+
 ```bash
-npm install tui-react-library
+npm install github:pve-homelab/TUI-React-Library
 ```
 
-Peer dependencies: `react` and `react-dom` (`^18.2 || ^19`).
+Or clone and path/workspace-link after `npm run build`. Peer dependencies: `react` and `react-dom` (`^18.2 || ^19`).
 
 ```tsx
 import { ThemeProvider, Pane, StatusBar, KanbanBoard } from 'tui-react-library';
